@@ -1,0 +1,42 @@
+﻿@page "/students"
+@using MauiHybridMudblazorCrud.Models
+
+@inject NavigationManager NavManager
+<h1>Student List</h1>
+@if (students == null)
+{
+    <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
+}
+else
+{
+    <MudTable Items="students" Elevation="25" Hover="true" Dense="false" Bordered="false" Striped="true">
+            <ToolBarContent>
+            <MudButton DisableElevation Variant="Variant.Filled" Color="Color.Primary" @onclick="@(() => NavManager.NavigateTo($"add_student"))" StartIcon="@Icons.Material.Filled.Add" IconColor="Color.Surface">New Student</MudButton>
+            </ToolBarContent>
+            <HeaderContent>
+            <MudTh><MudTableSortLabel T="StudentModel" SortLabel="Name">First Name</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel T="StudentModel" SortLabel="Name">Last Name</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel T="StudentModel" SortLabel="Name">Gender</MudTableSortLabel></MudTh>
+                <MudTh Style="text-align:right">Actions</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+             <MudTd DataLabel="FirstName">
+                    <MudHighlighter Text="@context.FirstName" HighlightedText="@_searchString" />
+            </MudTd>
+             <MudTd DataLabel="LastName">
+                    <MudHighlighter Text="@context.LastName" HighlightedText="@_searchString" />
+            </MudTd>
+            <MudTd DataLabel="Gender">
+                    <MudHighlighter Text="@context.Gender" HighlightedText="@_searchString" />
+            </MudTd>
+            <MudTd DataLabel="Actions" Style="text-align: right">
+                    <MudItem>
+                    <MudIconButton DisableElevation Color="Color.Warning" Size="@Size.Small" Variant="Variant.Filled" Icon="@Icons.Material.Outlined.Edit" OnClick="@(() => EditStudent(@context.Id))" aria-label="Edit" Style="margin:3px" />
+
+                     <MudIconButton DisableElevation Color="Color.Error" Size="@Size.Small" Variant="Variant.Filled" Icon="@Icons.Material.Outlined.Delete" OnClick="@(() => DeleteStudent(@context))" aria-label="Delete" Style="margin:3px" />
+                        
+                    </MudItem>
+                </MudTd>
+            </RowTemplate>
+        </MudTable>
+}

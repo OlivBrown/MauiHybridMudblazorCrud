@@ -1,0 +1,102 @@
+﻿@page "/add_student"
+@page "/update_student/{StudentId:int}"
+@using MauiHybridMudblazorCrud.Services
+
+
+@inject IStudentService StudentService
+@inject NavigationManager NavManager
+@* <h3>Add Or Update Student</h3>
+ *@
+<EditForm Model="@AddEditStudentModel" OnSubmit="AddStudentRecord">
+    <MudCard Elevation="10">
+        <MudCardHeader>
+            <CardHeaderActions>
+                <MudIconButton Icon="@Icons.Material.Filled.ArrowBack" OnClick="@(() => NavManager.NavigateTo($"/students"))" Color="Color.Default" />
+            </CardHeaderActions>
+            <CardHeaderContent>
+                @{
+                    if (AddEditStudentModel.Id == 0)
+                    {
+                        <MudText Typo="Typo.h6">
+                            <MudIcon Icon="@Icons.Material.Filled.Add" Class="mr-3 mb-n1" />
+                            Add Studend
+                        </MudText>
+                    }
+                    else
+                    {
+                        <MudText Typo="Typo.h6">
+                            <MudIcon Icon="@Icons.Material.Filled.Update" Class="mr-3 mb-n1" />
+                            Update Studend
+                        </MudText>
+                    }
+                }
+            </CardHeaderContent>
+        </MudCardHeader>
+        <MudCardContent>
+            <MudGrid>
+                <MudItem xs="12" md="12">
+                    <MudTextField T="string" For="@(() => AddEditStudentModel.FirstName)" @bind-Value="AddEditStudentModel.FirstName" Label="First Name" />
+                </MudItem>
+                <MudItem xs="12" md="12">
+                    <MudTextField T="string" For="@(() => AddEditStudentModel.LastName)" @bind-Value="AddEditStudentModel.LastName" Label="Last Name" />
+                </MudItem>
+                <MudItem xs="12" md="12">
+                    <MudTextField T="string" InputType="InputType.Email" For="@(() => AddEditStudentModel.Email)" @bind-Value="AddEditStudentModel.Email" Label="Email" />
+                </MudItem>
+                <MudItem xs="12" md="12">
+                    <MudRadioGroup @bind-SelectedOption="@AddEditStudentModel.Gender">
+                        <MudRadio Option="@("Male")" Color="Color.Primary">Male</MudRadio>
+                        <MudRadio Option="@("Female")" Color="Color.Secondary">Female</MudRadio>
+                    </MudRadioGroup>
+                </MudItem>
+            </MudGrid>
+        </MudCardContent>
+        <MudCardActions>
+            <MudButton DisableElevation Variant="Variant.Filled" OnClick="@(() => NavManager.NavigateTo($"/students"))">Cancel</MudButton>
+            @if (AddEditStudentModel.Id != 0)
+            {
+                <MudButton DisableElevation Variant="Variant.Filled" ButtonType="ButtonType.Submit" Disabled="@(!Validated)" Color="Color.Secondary">Update</MudButton>
+            }
+            else
+            {
+                <MudButton DisableElevation Variant="Variant.Filled" ButtonType="ButtonType.Submit" Disabled="@(!Validated)" Color="Color.Success">Save</MudButton>
+            }
+        </MudCardActions>
+    </MudCard>
+</EditForm>
+@* <div class="form-group">
+    <label>First Name</label>
+    <input @bind="firstName" class="form-control" placeholder="First Name">
+</div>
+<div class="mt-2 form-group">
+    <label>Last Name</label>
+    <input @bind="lastName" class="form-control" placeholder="Last Name">
+</div>
+
+
+<div class="mt-2 form-group">
+    <label>Email address</label>
+    <input @bind="email" type="email" class="form-control" placeholder="Email">
+</div> *@
+@* 
+<div class="mt-2 form-group">
+    <label>Gender</label>
+    <div class=" d-flex flex-row">
+        <div class="col-6 d-flex justify-content-between">
+            <div class="form-check">
+                <input checked="@(gender=="Male")" @onchange="@(()=> setGender("Male"))" class="form-check-input" type="radio" name="flexRadioDefault">
+                <label class="form-check-label" for="flexRadioDefault1">
+                    Male
+                </label>
+            </div>
+            <div class="form-check">
+                <input checked="@(gender=="Female")" @onchange="@(()=> setGender("Female"))" class="form-check-input" type="radio" name="flexRadioDefault">
+                <label class="form-check-label" for="flexRadioDefault2">
+                    Female
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button type="submit" @onclick="AddStudentRecord" class="mt-2 btn btn-primary">Submit</button> *@
